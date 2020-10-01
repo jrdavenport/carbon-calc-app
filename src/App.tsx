@@ -3,7 +3,6 @@ import "./App.css";
 import Admin from "./pages/admin";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
-import SelectionButton from "./Components/SelectionButton";
 
 // BEGIN: TO BE REMOVED WHEN REAL DATA IS SAVED TO STORAGE
 function createData(
@@ -43,30 +42,6 @@ function App() {
                     </Route>
                 </Switch>
             </Router>
-
-            <SelectionButton
-                text={{ zone: "red" }}
-                color="red"
-                onClick={() => console.log("beans")}
-            />
-            <SelectionButton
-                text={{ zone: "dog" }}
-                color="red"
-                animal="🐶"
-                onClick={() => console.log("beans")}
-            />
-            <SelectionButton
-                text={{ transport: "car" }}
-                transport="🚘"
-                onClick={() => console.log("beans")}
-            />
-            <SelectionButton
-                text={{ zone: "red dog", transport: "car" }}
-                color="red"
-                animal="🐶"
-                transport="🚘"
-                onClick={() => console.log("beans")}
-            />
         </div>
     );
 }

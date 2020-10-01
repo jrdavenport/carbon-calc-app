@@ -5,26 +5,30 @@ import TransportSelection from '../Components/TransportSelection';
 import ZoneAnimalSelection from '../Components/ZoneAnimalSelection';
 import ZoneColourSelection from '../Components/ZoneColourSelection';
 
+export interface buttonValue {
+    value: string,
+    img?: string
+}
 
 const steps = ['Zone animal', 'Zone colour', 'Transport', 'Summary'];
 
-function getStepContent(step: number, stepsState: { [step: number]: any }, handleNext: (selectedValue: string) => void) {
+function getStepContent(step: number, stepsState: { [step: number]: buttonValue }, handleNext: (selectedValue: buttonValue) => void) {
     switch (step) {
         case 0:
             return <ZoneAnimalSelection handleNext={handleNext} />;
         case 1:
-            return <ZoneColourSelection selectedAnimal={stepsState[0].img} handleNext={handleNext} />;
+            return <ZoneColourSelection selectedAnimal={stepsState[0].img!} handleNext={handleNext} />;
         case 2:
             return <TransportSelection handleNext={handleNext} />;
         case 3:
-            return <SelectionSummary zoneAnimal={stepsState[0].string} zoneColour={stepsState[1]} transport={stepsState[2]} />
+            return <SelectionSummary zoneAnimal={stepsState[0]} zoneColour={stepsState[1]} transport={stepsState[2]} />
         default:
             throw new Error('Unknown step');
     }
 }
 interface AppState {
     activeStep: number;
-    stepsState: { [step: number]: any };
+    stepsState: { [step: number]: buttonValue };
     zoneAnimal?: string;
     zoneColour?: string;
     transport?: string;
@@ -42,7 +46,7 @@ function Home() {
 
     const [state, setState] = useState<AppState>(defaultState);
 
-    const handleNext = (selectedValue: string) => {
+    const handleNext = (selectedValue: buttonValue) => {
         const updatedStepsState = state.stepsState;
         updatedStepsState[state.activeStep] = selectedValue;
         setState({
