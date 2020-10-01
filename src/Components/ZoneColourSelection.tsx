@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import SelectionButton from '../Components/SelectionButton';
-import { buttonValue } from '../pages/home';
+import { buttonValue } from '../utils';
 
 interface Props {
   selectedAnimal: string;

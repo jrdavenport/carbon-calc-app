@@ -4,23 +4,7 @@ import SelectionSummary from '../Components/SelectionSummary';
 import TransportSelection from '../Components/TransportSelection';
 import ZoneAnimalSelection from '../Components/ZoneAnimalSelection';
 import ZoneColourSelection from '../Components/ZoneColourSelection';
-
-interface transportData {
-    zone:
-    {
-        animal: string,
-        colour: string
-    },
-    transport: string,
-    date: Date,
-    am_pm: string,
-};
-
-
-export interface buttonValue {
-    value: string,
-    img?: string
-}
+import { buttonValue, transportData } from '../utils';
 
 const localStorageKey = 'transportData';
 

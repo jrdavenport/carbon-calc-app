@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { buttonValue } from '../pages/home';
+import { buttonValue } from '../utils';
 import SelectionButton from './SelectionButton';
 
 interface Props {
