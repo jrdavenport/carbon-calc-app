@@ -29,7 +29,7 @@ type SelectionButtonProps = {
     animal?: string
     transport?: string
     text: SelectionButtonText
-    onClick : () => void
+    onClick: () => void
 }
 
 const SelectionButton: FC<SelectionButtonProps> = (props) => {
@@ -46,7 +46,9 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
                     {props.transport}
                 </Typography></>
         } else {
-            return <Typography component="div" className={classes.bigEmoji}>
+            let size = (props.animal?.length || 0) + (props?.transport?.length || 0) // very hacky emojis count for 2 atleast :(
+
+            return <Typography component="div" className={size > 2 ? classes.smallEmoji : classes.bigEmoji}>
                 {props.animal || props.transport || '\u00A0'}
             </Typography>
         }
