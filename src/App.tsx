@@ -1,14 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Button from '@material-ui/core/Button';
+import Admin from './pages/admin'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Button variant="contained" color="primary">
-      Hello World
-    </Button>
+       <Router>
+        <Switch>
+          <Route path="/admin">
+            <Admin />
+          </Route>
+          <Route path="/">
+            Homepage content here
+          </Route>
+        </Switch>
+       </Router>
     </div>
   );
 }
