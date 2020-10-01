@@ -7,20 +7,21 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Home from './pages/home';
 
 function App() {
   return (
     <div className="App">
-       <Router>
+      <Router>
         <Switch>
           <Route path="/admin">
             <Admin />
           </Route>
           <Route path="/">
-            Homepage content here
+            <Home />
           </Route>
         </Switch>
-       </Router>
+      </Router>
     </div>
   );
 }
