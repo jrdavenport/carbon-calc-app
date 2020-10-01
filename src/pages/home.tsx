@@ -1,17 +1,30 @@
-import { Button, Step, StepLabel, Stepper, Typography } from '@material-ui/core';
+import { Button, Grid, Step, StepLabel, Stepper, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import SelectionButton from '../Components/SelectionButton';
+import ZoneAnimalSelection from '../Components/ZoneAnimalSelection';
+import ZoneColourSelection from '../Components/ZoneColourSelection';
 
 
 const steps = ['Zone animal', 'Zone colour', 'Transport', 'Summary'];
 
-function getStepContent(step: number, handleNext: (selectedValue: string) => void) {
+function getStepContent(step: number, stepsState: { [step: number]: string }, handleNext: (selectedValue: string) => void) {
     switch (step) {
         case 0:
-            return <Button onClick={() => {handleNext('Badger')}}>Badger</Button>;
+            return <ZoneAnimalSelection handleNext={handleNext}/>;            
         case 1:
-            return <Button onClick={() => {handleNext('Red')}}>Badger</Button>;
+            return <ZoneColourSelection selectedAnimal={stepsState[0]} handleNext={handleNext}/>;    
         case 2:
-            return <Button onClick={() => {handleNext('Car')}}>Badger</Button>;
+            return <Grid container spacing={3}>
+                <Grid item xs>
+                    <SelectionButton text={{ transport: "car" }} transport="🚘" onClick={() => handleNext('car')} />
+                </Grid>
+                <Grid item xs>
+                    <SelectionButton text={{ transport: "walk" }} transport="🦶" onClick={() => handleNext('walk')} />
+                </Grid>
+                <Grid item xs>
+                    <SelectionButton text={{ transport: "train" }} transport="🚆" onClick={() => handleNext('train')} />
+                </Grid>
+            </Grid>
         case 3:
             return <p>Review!</p>;
         default:
@@ -20,7 +33,7 @@ function getStepContent(step: number, handleNext: (selectedValue: string) => voi
 }
 interface AppState {
     activeStep: number;
-    stepsState: { [step: number] : string};
+    stepsState: { [step: number]: string };
     zoneAnimal?: string;
     zoneColour?: string;
     transport?: string;
@@ -79,7 +92,7 @@ function Home() {
                     </React.Fragment>
                 ) : (
                         <React.Fragment>
-                            {getStepContent(state.activeStep, handleNext)}
+                            {getStepContent(state.activeStep, state.stepsState, handleNext)}
                             <div>
                                 {state.activeStep !== 0 && (
                                     <Button onClick={handleBack}>

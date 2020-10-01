@@ -52,7 +52,7 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
         }
     }
     return <Card className={classes.root}>
-        <CardActionArea className={classes.root} onClick={() => props.onClick()}>
+        <CardActionArea className={classes.root} onClick={props.onClick}>
             <CardContent style={{backgroundColor: props.color}}>
                 {emoji()}
             </CardContent>
