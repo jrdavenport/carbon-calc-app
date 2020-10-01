@@ -14,13 +14,13 @@ function ZoneColourSelection({
 
   return <Grid container spacing={3}>
     <Grid item xs>
-      <SelectionButton text={{ zone: "red" }} animal={selectedAnimal} onClick={() => handleNext('red')} />
+      <SelectionButton text={{ zone: "red" }} animal={selectedAnimal} color='red' onClick={() => handleNext('red')} />
     </Grid>
     <Grid item xs>
-      <SelectionButton text={{ zone: "yellow" }} animal={selectedAnimal} onClick={() => handleNext('yellow')} />
+      <SelectionButton text={{ zone: "yellow" }} animal={selectedAnimal} color='yellow' onClick={() => handleNext('yellow')} />
     </Grid>
     <Grid item xs>
-      <SelectionButton text={{ zone: "blue" }} animal={selectedAnimal} onClick={() => handleNext('blue')} />
+      <SelectionButton text={{ zone: "blue" }} animal={selectedAnimal} color='blue' onClick={() => handleNext('blue')} />
     </Grid>
   </Grid>;
 }

@@ -7,12 +7,12 @@ import ZoneColourSelection from '../Components/ZoneColourSelection';
 
 const steps = ['Zone animal', 'Zone colour', 'Transport', 'Summary'];
 
-function getStepContent(step: number, stepsState: { [step: number]: string }, handleNext: (selectedValue: string) => void) {
+function getStepContent(step: number, stepsState: { [step: number]: any }, handleNext: (selectedValue: string) => void) {
     switch (step) {
         case 0:
-            return <ZoneAnimalSelection handleNext={handleNext}/>;            
+            return <ZoneAnimalSelection handleNext={handleNext} />;
         case 1:
-            return <ZoneColourSelection selectedAnimal={stepsState[0]} handleNext={handleNext}/>;    
+            return <ZoneColourSelection selectedAnimal={stepsState[0].img} handleNext={handleNext} />;
         case 2:
             return <Grid container spacing={3}>
                 <Grid item xs>
@@ -33,7 +33,7 @@ function getStepContent(step: number, stepsState: { [step: number]: string }, ha
 }
 interface AppState {
     activeStep: number;
-    stepsState: { [step: number]: string };
+    stepsState: { [step: number]: any };
     zoneAnimal?: string;
     zoneColour?: string;
     transport?: string;

@@ -7,68 +7,68 @@ import SelectionButton from "./Components/SelectionButton";
 
 // BEGIN: TO BE REMOVED WHEN REAL DATA IS SAVED TO STORAGE
 function createData(
-  colour: string,
-  animal: string,
-  transport: string,
-  date: Date,
-  am_pm: string
+    colour: string,
+    animal: string,
+    transport: string,
+    date: Date,
+    am_pm: string
 ) {
-  return {
-    zone: { colour, animal },
-    transport,
-    date,
-    am_pm,
-  };
+    return {
+        zone: { colour, animal },
+        transport,
+        date,
+        am_pm,
+    };
 }
 
 const rows = [
-  createData("red", "tiger", "car", new Date(), "am"),
-  createData("blue", "dog", "bus", new Date(), "am"),
-  createData("red", "tiger", "car", new Date(), "am"),
+    createData("red", "tiger", "car", new Date(), "am"),
+    createData("blue", "dog", "bus", new Date(), "am"),
+    createData("red", "tiger", "car", new Date(), "am"),
 ];
 
 localStorage.setItem("data", JSON.stringify(rows));
 // END: TO BE REMOVED WHEN REAL DATA IS SAVED TO STORAGE
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/admin">
-            <Admin />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+    return (
+        <div className="App">
+            <Router>
+                <Switch>
+                    <Route path="/admin">
+                        {/* <Admin /> */}
+                    </Route>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch>
+            </Router>
 
-      <SelectionButton
-        text={{ zone: "red" }}
-        color="red"
-        onClick={() => console.log("beans")}
-      />
-      <SelectionButton
-        text={{ zone: "dog" }}
-        color="red"
-        animal="🐶"
-        onClick={() => console.log("beans")}
-      />
-      <SelectionButton
-        text={{ transport: "car" }}
-        transport="🚘"
-        onClick={() => console.log("beans")}
-      />
-      <SelectionButton
-        text={{ zone: "red dog", transport: "car" }}
-        color="red"
-        animal="🐶"
-        transport="🚘"
-        onClick={() => console.log("beans")}
-      />
-    </div>
-  );
+            <SelectionButton
+                text={{ zone: "red" }}
+                color="red"
+                onClick={() => console.log("beans")}
+            />
+            <SelectionButton
+                text={{ zone: "dog" }}
+                color="red"
+                animal="🐶"
+                onClick={() => console.log("beans")}
+            />
+            <SelectionButton
+                text={{ transport: "car" }}
+                transport="🚘"
+                onClick={() => console.log("beans")}
+            />
+            <SelectionButton
+                text={{ zone: "red dog", transport: "car" }}
+                color="red"
+                animal="🐶"
+                transport="🚘"
+                onClick={() => console.log("beans")}
+            />
+        </div>
+    );
 }
 
 export default App;
