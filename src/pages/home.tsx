@@ -5,10 +5,24 @@ import TransportSelection from '../Components/TransportSelection';
 import ZoneAnimalSelection from '../Components/ZoneAnimalSelection';
 import ZoneColourSelection from '../Components/ZoneColourSelection';
 
+interface transportData {
+    zone:
+    {
+        animal: string,
+        colour: string
+    },
+    transport: string,
+    date: Date,
+    am_pm: string,
+};
+
+
 export interface buttonValue {
     value: string,
     img?: string
 }
+
+const localStorageKey = 'transportData';
 
 const steps = ['Zone animal', 'Zone colour', 'Transport', 'Summary'];
 
@@ -26,6 +40,25 @@ function getStepContent(step: number, stepsState: { [step: number]: buttonValue 
             throw new Error('Unknown step');
     }
 }
+
+function mapStateDataToStoredData(stateData: { [step: number]: buttonValue }): transportData {
+    const date = new Date();
+
+    var hours = date.getHours();
+    var ampm = (hours >= 12) ? "PM" : "AM";
+
+    return {
+        zone:
+        {
+            animal: stateData[0].value,
+            colour: stateData[1].value,
+        },
+        transport: stateData[2].value,
+        date,
+        am_pm: ampm,
+    };
+}
+
 interface AppState {
     activeStep: number;
     stepsState: { [step: number]: buttonValue };
@@ -66,6 +99,17 @@ function Home() {
         });
     };
 
+    const handleSubmit = (selectedData: { [step: number]: buttonValue }) => {
+        const selectedTransport = mapStateDataToStoredData(selectedData);
+        let data: transportData[] = [];
+        if (localStorage.getItem(localStorageKey)) {
+            console.log(localStorage.getItem(localStorageKey));
+            data = JSON.parse((localStorage.getItem(localStorageKey) as string));
+        }
+        data.push(selectedTransport);
+        localStorage.setItem(localStorageKey, JSON.stringify(data));
+    };
+
     return (
         <>
             <Stepper activeStep={state.activeStep}>
@@ -92,6 +136,10 @@ function Home() {
                                     {getStepContent(state.activeStep, state.stepsState, handleNext)}
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {state.activeStep === (steps.length - 1) &&
+                                        (<Button onClick={() => handleSubmit(state.stepsState)} variant="contained" color="primary">
+                                            Confirm
+                                        </Button>)}
                                     {state.activeStep !== 0 && (
                                         <Button onClick={handleBack} variant="contained" color="secondary">
                                             Back
