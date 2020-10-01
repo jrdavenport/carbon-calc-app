@@ -132,34 +132,34 @@ function Home() {
             <Typography variant="subtitle1">You are great!</Typography>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                {getStepContent(state.activeStep, state.stepsState, handleNext)}
+            <React.Fragment>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  {getStepContent(state.activeStep, state.stepsState, handleNext)}
+                </Grid>
+                <Grid item xs={12}>
+                  {state.activeStep === steps.length - 1 && (
+                    <Button
+                      onClick={() => handleSubmit(state.stepsState)}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Confirm
+                    </Button>
+                  )}
+                  {state.activeStep !== 0 && (
+                    <Button
+                      onClick={handleBack}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Back
+                    </Button>
+                  )}
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                {state.activeStep === steps.length - 1 && (
-                  <Button
-                    onClick={() => handleSubmit(state.stepsState)}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Confirm
-                  </Button>
-                )}
-                {state.activeStep !== 0 && (
-                  <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Back
-                  </Button>
-                )}
-              </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
+            </React.Fragment>
+          )}
       </React.Fragment>
     </>
   );

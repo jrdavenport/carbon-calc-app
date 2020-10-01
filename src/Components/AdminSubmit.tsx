@@ -16,27 +16,35 @@ function doSubmit(payload: Array<transportData>) {
   axios.post("http://localhost:3001/uploadData", payload);
 }
 
-function SubmitButton({ payload }: { payload: Array<transportData> }) {
+function Buttons({ payload }: { payload: Array<transportData> }) {
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => doSubmit(payload)}
-    >
-      Submit
+    <>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => localStorage.removeItem(localStorageKey)}
+      >
+        Clear Data
+  </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => doSubmit(payload)}
+      >
+        Submit
     </Button>
+    </>
   );
 }
 
 function AdminSubmit() {
-  const transportRows = JSON.parse(
-    localStorage.getItem(localStorageKey) as string
-  );
+  const transportRows: transportData[] =
+    JSON.parse(localStorage.getItem(localStorageKey) || "[]")
 
   return (
     <div>
       <p>Please confirm and submit the below entries.</p>
-      <SubmitButton payload={transportRows} />
+      <Buttons payload={transportRows} />
       <div style={{ margin: "20px" }}>
         <TableContainer component={Paper}>
           <Table>
@@ -50,11 +58,11 @@ function AdminSubmit() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transportRows.map((row: transportData) => {
+              {transportRows.map((row: transportData, index: number) => {
                 const { zone, transport, date, am_pm } = row;
                 return (
                   <TableRow
-                    key={`${row.zone.animal}-${zone.colour}-${transport}-${date}-${am_pm}`}
+                    key={`${row.zone.animal}-${zone.colour}-${transport}-${date}-${am_pm}-${index}`}
                   >
                     <TableCell>{zone.colour}</TableCell>
                     <TableCell>{zone.animal}</TableCell>
@@ -68,7 +76,7 @@ function AdminSubmit() {
           </Table>
         </TableContainer>
       </div>
-      <SubmitButton payload={transportRows} />
+      <Buttons payload={transportRows} />
     </div>
   );
 }

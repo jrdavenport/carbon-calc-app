@@ -13,4 +13,4 @@ export interface buttonValue {
   img?: string;
 }
 
-export const localStorageKey = "transportData";
+export const localStorageKey = 'transportData';
