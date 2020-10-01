@@ -2,6 +2,7 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import SelectionButton from '../Components/SelectionButton';
 import { buttonValue } from '../utils';
+import SCHOOL_DATA from '../school_data/school_1.json';
 
 interface Props {
   handleNext: (selectedValue: buttonValue) => void;
@@ -10,17 +11,13 @@ interface Props {
 function ZoneAnimalSelection({
   handleNext,
 }: Props) {
-
+  const animals: buttonValue[] = (SCHOOL_DATA["zones"]["animals"] as buttonValue[]);
   return <Grid container spacing={3} justify="center" >
-    <Grid item xs={3}>
-      <SelectionButton text={{ zone: "dog" }} animal="🐶" onClick={() => handleNext({ value: 'dog', img: "🐶" })} />
-    </Grid>
-    <Grid item xs={3}>
-      <SelectionButton text={{ zone: "badger" }} animal="🦡" onClick={() => handleNext({ value: 'badger', img: "🦡" })} />
-    </Grid>
-    <Grid item xs={3}>
-      <SelectionButton text={{ zone: "chicken" }} animal="🐔" onClick={() => handleNext({ value: 'chicken', img: "🐔" })} />
-    </Grid>
+    {animals.map((animal: buttonValue) => {
+      return <Grid item xs={3}>
+        <SelectionButton text={{ zone: animal.value }} animal={animal.img!} onClick={() => handleNext(animal)} />
+      </Grid>
+    })}
   </Grid >;
 }
 

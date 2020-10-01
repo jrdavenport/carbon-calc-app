@@ -1,0 +1,78 @@
+{
+  "zones": {
+    "animals": [
+      {
+        "value": "Dog",
+        "img": "🐶"
+      },
+      {
+        "value": "Butterfly",
+        "img": "🦋"
+      },
+      {
+        "value": "Chicken",
+        "img": "🐔"
+      },
+      {
+        "value": "Deer",
+        "img": "🦌"
+      },
+      {
+        "value": "Fish",
+        "img": "🐠"
+      },
+      {
+        "value": "Bee",
+        "img": "🐝"
+      },
+      {
+        "value": "Owl",
+        "img": "🦉"
+      }
+    ],
+    "colours": [
+      {
+        "value": "Red"
+      },
+      {
+        "value": "Green"
+      },
+      {
+        "value": "Pink"
+      },
+      {
+        "value": "Blue"
+      }
+    ]
+  },
+  "transports": [
+    {
+      "value": "Walk",
+      "img": "🥾"
+    },
+    {
+      "value": "Bike",
+      "img": "🚲"
+    },
+    {
+      "value": "Bus",
+      "img": "🚌"
+    },
+    {
+      "value": "Petrol Car",
+      "img": "🚘🇵"
+    },
+    {
+      "value": "Train",
+      "img": "🚆"
+    },
+    {
+      "value": "Diesel Car",
+      "img": "🚘🇩"
+    },
+    {
+      "value": "Electric Car",
+      "img": "🚘⚡"
+    }
+  ]
+}
