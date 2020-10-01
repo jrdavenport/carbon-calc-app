@@ -10,17 +10,17 @@ function ZoneAnimalSelection({
   handleNext,
 }: Props) {
 
-  return <Grid container spacing={3}>
-    <Grid item xs>
+  return <Grid container spacing={3} justify="center" >
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "dog" }} animal="🐶" onClick={() => handleNext({ string: 'dog', img: "🐶" })} />
     </Grid>
-    <Grid item xs>
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "badger" }} animal="🦡" onClick={() => handleNext({ string: 'badger', img: "🦡" })} />
     </Grid>
-    <Grid item xs>
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "chicken" }} animal="🐔" onClick={() => handleNext({ string: 'chicken', img: "🐔" })} />
     </Grid>
-  </Grid>;
+  </Grid >;
 }
 
 export default ZoneAnimalSelection

@@ -12,14 +12,14 @@ function ZoneColourSelection({
   handleNext,
 }: Props) {
 
-  return <Grid container spacing={3}>
-    <Grid item xs>
+  return <Grid container spacing={3} justify="center">
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "red" }} animal={selectedAnimal} color='red' onClick={() => handleNext('red')} />
     </Grid>
-    <Grid item xs>
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "yellow" }} animal={selectedAnimal} color='yellow' onClick={() => handleNext('yellow')} />
     </Grid>
-    <Grid item xs>
+    <Grid item xs={3}>
       <SelectionButton text={{ zone: "blue" }} animal={selectedAnimal} color='blue' onClick={() => handleNext('blue')} />
     </Grid>
   </Grid>;
