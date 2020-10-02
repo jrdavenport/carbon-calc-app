@@ -32,16 +32,20 @@
     ],
     "colours": [
       {
-        "value": "Red"
+        "value": "Red",
+        "colour": "LightCoral"
       },
       {
-        "value": "Green"
+        "value": "Green",
+        "colour": "LightGreen"
       },
       {
-        "value": "Yellow"
+        "value": "Yellow",
+        "colour": "Gold"
       },
       {
-        "value": "Blue"
+        "value": "Blue",
+        "colour": "LightBlue"
       }
     ]
   },

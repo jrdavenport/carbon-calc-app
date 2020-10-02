@@ -17,7 +17,7 @@ function ZoneColourSelection({
   return <Grid container spacing={3} justify="center" alignItems="center">
     {colours.map((colour: buttonValue) => {
       return <Grid item xs={12} sm={6}>
-        <SelectionButton text={{ zone: colour.value }} animal={selectedAnimal} color={colour.value} onClick={() => handleNext(colour)} />
+        <SelectionButton text={{ zone: colour.value }} animal={selectedAnimal} color={colour.colour} onClick={() => handleNext(colour)} />
       </Grid>
     })}
   </Grid >;

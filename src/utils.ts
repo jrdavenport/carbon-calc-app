@@ -11,6 +11,7 @@ export interface transportData {
 export interface buttonValue {
   value: string;
   img?: string;
+  colour?: string;
 }
 
 export const localStorageKey = "transportData";

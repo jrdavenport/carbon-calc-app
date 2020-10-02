@@ -1,10 +1,10 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
-import {makeStyles} from '@material-ui/core/styles';
-import {CardHeader} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { CardHeader } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -17,12 +17,12 @@ const useStyles = makeStyles({
     bigEmoji: {
         fontSize: 130,
         marginTop: -20,
-        textShadow : "0 0 2px white, 0 0 25px white, 0 0 5px white"
+        textShadow: "0 0 2px white, 0 0 25px white, 0 0 5px white"
     },
     smallEmoji: {
         fontSize: 95,
         marginTop: -20,
-        textShadow : "0 0 2px white, 0 0 25px white, 0 0 5px white"
+        textShadow: "0 0 2px white, 0 0 25px white, 0 0 5px white"
     },
     boarder: {
         borderRadius: 25,
@@ -36,6 +36,7 @@ const useStyles = makeStyles({
 type SelectionButtonText = {
     zone?: string
     transport?: string
+    zoneColour?: string
 }
 
 type SelectionButtonProps = {
@@ -68,8 +69,8 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
         }
     }
     let cardTitle = () => {
-        if (props.animal && props.transport) {
-            return `${props.text.zone} travelling by ${props.text.transport}`;
+        if (props.animal && props.color && props.transport) {
+            return `${props.text.zoneColour} ${props.text.zone} travelling by ${props.text.transport}`;
         } else {
             return props.text.zone || props.text.transport;
         }
@@ -77,8 +78,8 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
 
     return <Card className={classes.root} variant="outlined">
         <CardActionArea onClick={props.onClick} className={classes.boarder} >
-            <CardHeader title={cardTitle()}/>
-            <CardContent style={{backgroundColor: props.color}} >
+            <CardHeader title={cardTitle()} />
+            <CardContent style={{ backgroundColor: props.color }} >
                 {emoji()}
             </CardContent>
         </CardActionArea>

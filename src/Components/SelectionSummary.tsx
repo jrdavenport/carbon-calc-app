@@ -17,13 +17,13 @@ function SelectionSummary({ zoneAnimal, zoneColour, transport }: Props) {
           Please confirm your selection:
         </Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sm={3}>
         <SelectionButton
-          color={zoneColour.value}
+          color={zoneColour.colour}
           transport={transport.img}
           animal={zoneAnimal.img}
           onClick={() => { }}
-          text={{ zone: zoneAnimal.value, transport: transport.value }}
+          text={{ zone: zoneAnimal.value, transport: transport.value, zoneColour: zoneColour.value }}
         />
       </Grid>
     </Grid>
