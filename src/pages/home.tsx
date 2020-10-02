@@ -17,6 +17,7 @@ import ZoneAnimalSelection from "../Components/ZoneAnimalSelection";
 import ZoneColourSelection from "../Components/ZoneColourSelection";
 import { buttonValue, transportData, localStorageKey } from "../utils";
 import CarbonComponent from "../Components/CarbonComponent";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +70,7 @@ function mapStateDataToStoredData(stateData: {
   const date = new Date();
 
   var hours = date.getHours();
-  var ampm = hours >= 12 ? "PM" : "AM";
+  var journey = hours >= 12 ? "From" : "To";
 
   return {
     zone: {
@@ -77,8 +78,8 @@ function mapStateDataToStoredData(stateData: {
       colour: stateData[1].value,
     },
     transport: stateData[2].value,
-    date,
-    am_pm: ampm,
+    date: moment(date).format("YYYY-MM-DD"),
+    journey,
   };
 }
 

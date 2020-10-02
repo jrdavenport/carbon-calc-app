@@ -10,9 +10,11 @@ import {
   Button,
 } from "@material-ui/core";
 import axios from "axios";
-import { transportData, localStorageKey } from "../utils";
+import { transportData, localStorageKey, adaptRecords } from "../utils";
 
-function doSubmit(payload: Array<transportData>) {
+function doSubmit(records: Array<transportData>) {
+  const payload = adaptRecords(records);
+  console.log("payloa", payload);
   axios.post("http://localhost:3001/uploadData", payload);
 }
 
@@ -82,21 +84,21 @@ function AdminSubmit() {
                     <TableCell>Animal</TableCell>
                     <TableCell>Transport</TableCell>
                     <TableCell>Date</TableCell>
-                    <TableCell>AM/PM</TableCell>
+                    <TableCell>To/From School</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {transportRows.map((row: transportData, index: number) => {
-                    const { zone, transport, date, am_pm } = row;
+                    const { zone, transport, date, journey } = row;
                     return (
                       <TableRow
-                        key={`${row.zone.animal}-${zone.colour}-${transport}-${date}-${am_pm}-${index}`}
+                        key={`${row.zone.animal}-${zone.colour}-${transport}-${date}-${journey}-${index}`}
                       >
                         <TableCell>{zone.colour}</TableCell>
                         <TableCell>{zone.animal}</TableCell>
                         <TableCell>{transport}</TableCell>
                         <TableCell>{date}</TableCell>
-                        <TableCell>{am_pm}</TableCell>
+                        <TableCell>{journey}</TableCell>
                       </TableRow>
                     );
                   })}
