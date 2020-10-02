@@ -1,80 +1,50 @@
-import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@material-ui/core";
+import React, { useState } from "react";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
+import AdminSubmit from "../Components/AdminSubmit";
+import AdminDownload from "../Components/AdminDownload";
 
-interface dataRow {
-  zone: { animal: string; colour: string };
-  transport: string;
-  date: Date;
-  am_pm: string;
+type TabPanelProps = {
+  selectedTabIndex: number;
+  tabIndex: number;
+  children: React.ReactNode;
+};
+
+function TabPanel({ selectedTabIndex, tabIndex, children }: TabPanelProps) {
+  if (tabIndex === selectedTabIndex) {
+    return <div>{children}</div>;
+  }
+
+  return null;
 }
-
-function SubmitButton() {
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => console.log("submitting")}
-    >
-      Submit
-    </Button>
-  );
-}
-
-const realRows = JSON.parse(localStorage.getItem("data") || "");
-
-console.log("realRow=", realRows);
 
 function Admin() {
+  const [selectedTabIndex, selectTabIndex] = useState(0);
+
+  function onChange(event: any, selectedTabIndex: number) {
+    selectTabIndex(selectedTabIndex);
+  }
+
   return (
-    <div>
-      <p>Please confirm and submit the below entries.</p>
-      <SubmitButton />
-
+    <>
+      <AppBar position="static">
+        <Tabs
+          value={selectedTabIndex}
+          onChange={onChange}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Upload data" />
+          <Tab label="Download data" />
+        </Tabs>
+      </AppBar>
       <div style={{ margin: "20px" }}>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Colour</TableCell>
-                <TableCell>Animal</TableCell>
-                <TableCell>Transport</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>AM/PM</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {realRows.map((row: dataRow) => {
-                const { zone, transport, date, am_pm } = row;
-                return (
-                  <TableRow
-                    key={`${row.zone.animal}-${zone.colour}-${transport}-${am_pm}`}
-                  >
-                    <TableCell component="th" scope="row">
-                      {zone.colour}
-                    </TableCell>
-                    <TableCell>{zone.animal}</TableCell>
-                    <TableCell>{transport}</TableCell>
-                    <TableCell>{date}</TableCell>
-                    <TableCell>{am_pm}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <TabPanel selectedTabIndex={selectedTabIndex} tabIndex={0}>
+          <AdminSubmit />
+        </TabPanel>
+        <TabPanel selectedTabIndex={selectedTabIndex} tabIndex={1}>
+          <AdminDownload />
+        </TabPanel>
       </div>
-
-      <SubmitButton />
-    </div>
+    </>
   );
 }
 
