@@ -16,10 +16,12 @@ const useStyles = makeStyles({
     },
     bigEmoji: {
         fontSize: 130,
+        marginTop: -20,
         textShadow : "0 0 2px white, 0 0 25px white, 0 0 5px white"
     },
     smallEmoji: {
-        fontSize: 75,
+        fontSize: 95,
+        marginTop: -20,
         textShadow : "0 0 2px white, 0 0 25px white, 0 0 5px white"
     },
     boarder: {
@@ -54,7 +56,7 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
                 <Typography component="div" className={classes.smallEmoji}>
                     {props.animal}
                 </Typography>
-                <Typography component="div" className={classes.smallEmoji}>
+                <Typography component="div" className={classes.smallEmoji} >
                     {props.transport}
                 </Typography></>
         } else {
