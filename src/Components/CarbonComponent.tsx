@@ -37,7 +37,7 @@ const weights = [
 const CarbonComponent: FC<CarbonComponentProps> = (props) => {
     const classes = useStyles();
 
-    let carbonKgs: number = (props.transport.toLowerCase() === "walk") ? 0 : 0.001 + Math.round((Math.random() + Number.EPSILON) * 1000) / 1000
+    let carbonKgs: number = (props.transport.toLowerCase() === "walk") ? 0 : 0.001 + Math.random()
 
 
     let funWeight = (carbonKgs: number) => {
@@ -55,7 +55,7 @@ const CarbonComponent: FC<CarbonComponentProps> = (props) => {
         <>
             <Card className={classes.card}>
                 <Typography component="div" className={classes.smallEmoji}>
-                    You have used {carbonKgs} kgs of carbon, {funWeight(carbonKgs)}
+                    You have used {(carbonKgs === 0 ) ? "0" : carbonKgs.toFixed(3)} kgs of carbon, {funWeight(carbonKgs)}
                 </Typography>
             </Card>
         </>

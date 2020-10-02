@@ -13,7 +13,7 @@ function SelectionSummary({ zoneAnimal, zoneColour, transport }: Props) {
   return (
     <Grid container spacing={3} justify="center">
       <Grid item xs={12}>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           Please confirm your selection:
         </Typography>
       </Grid>
