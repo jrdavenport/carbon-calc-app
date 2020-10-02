@@ -1,19 +1,34 @@
 import {
   Button,
+  Container,
+  createStyles,
   Grid,
+  makeStyles,
   Step,
   StepLabel,
   Stepper,
+  Theme,
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import SelectionSummary from "../Components/SelectionSummary";
 import TransportSelection from "../Components/TransportSelection";
-import { makeStyles } from "@material-ui/core/styles";
 import ZoneAnimalSelection from "../Components/ZoneAnimalSelection";
 import ZoneColourSelection from "../Components/ZoneColourSelection";
 import { buttonValue, transportData, localStorageKey } from "../utils";
 import CarbonComponent from "../Components/CarbonComponent";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      // padding: 12,
+    },
+    buttonSpacing: {
+      marginTop: "20px",
+    },
+  })
+);
 
 const steps = ["Zone animal", "Zone colour", "Transport", "Summary"];
 
@@ -86,12 +101,6 @@ const defaultState = {
 function Home() {
   const [state, setState] = useState<AppState>(defaultState);
 
-  const useStyles = makeStyles({
-    buttonSpacing: {
-      marginTop: "20px",
-    },
-  });
-
   const classes = useStyles();
 
   const handleNext = (selectedValue: buttonValue) => {
@@ -134,7 +143,7 @@ function Home() {
   };
 
   return (
-    <>
+    <Container>
       <Stepper activeStep={state.activeStep}>
         {steps.map((label) => (
           <Step key={label}>
@@ -193,7 +202,7 @@ function Home() {
           </React.Fragment>
         )}
       </React.Fragment>
-    </>
+    </Container>
   );
 }
 
