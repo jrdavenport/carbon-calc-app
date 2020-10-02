@@ -59,12 +59,12 @@
       "img": "🚌"
     },
     {
-      "value": "Petrol Car",
-      "img": "🚘🇵"
-    },
-    {
       "value": "Train",
       "img": "🚆"
+    },
+    {
+      "value": "Petrol Car",
+      "img": "🚘🇵"
     },
     {
       "value": "Diesel Car",
