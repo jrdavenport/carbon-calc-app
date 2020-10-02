@@ -12,6 +12,9 @@ const theme = createMuiTheme({
             'sans-serif',
         ].join(','),
     },
+    palette: {
+        primary: { main: '#242B48' },
+    },
 });
 
 function App() {
