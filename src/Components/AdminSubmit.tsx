@@ -14,8 +14,7 @@ import { transportData, localStorageKey, adaptRecords } from "../utils";
 
 function doSubmit(records: Array<transportData>) {
   const payload = adaptRecords(records);
-  console.log("payloa", payload);
-  axios.post("http://localhost:3001/uploadData", payload);
+  axios.post("http://localhost:3003/class", payload, {});
 }
 
 function RefreshButton({ color }: { color: "primary" | "secondary" }) {

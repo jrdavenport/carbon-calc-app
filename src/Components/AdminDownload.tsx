@@ -4,9 +4,13 @@ import axios from "axios";
 import fileDownload from "js-file-download";
 
 function doDownload() {
-  axios.get("http://localhost:3001/downloadData").then((res) => {
-    fileDownload(res.data, "filename.csv");
-  });
+  axios
+    .get(
+      "http://localhost:3003/carbon?zone_animal=dog&zone_colour=blue&method=petrol%20car"
+    )
+    .then((res) => {
+      fileDownload(res.data, "filename.csv");
+    });
 }
 
 function DownloadButton() {
