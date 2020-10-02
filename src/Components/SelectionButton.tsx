@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     boarder: {
         borderRadius: 25,
         border: 5,
-        borderColor: "#00bcd4",
+        borderColor: "#6BECCF",
         borderStyle: "solid",
         overflow: "hidden"
     }
