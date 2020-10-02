@@ -14,7 +14,7 @@ function ZoneAnimalSelection({
   const animals: buttonValue[] = (SCHOOL_DATA["zones"]["animals"] as buttonValue[]);
   return <Grid container spacing={3} justify="center" >
     {animals.map((animal: buttonValue) => {
-      return <Grid item xs={3}>
+      return <Grid item xs={12} sm={3}>
         <SelectionButton text={{ zone: animal.value }} animal={animal.img!} onClick={() => handleNext(animal)} />
       </Grid>
     })}

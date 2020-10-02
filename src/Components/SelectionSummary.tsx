@@ -21,7 +21,7 @@ function SelectionSummary({
         Please confirm your selection:
     </Typography>
     </Grid>
-    <Grid item xs={3}>
+    <Grid item xs={12} sm={3}>
       <SelectionButton
         color={zoneColour.value}
         transport={transport.img}

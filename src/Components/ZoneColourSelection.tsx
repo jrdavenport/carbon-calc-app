@@ -16,7 +16,7 @@ function ZoneColourSelection({
   const colours: buttonValue[] = (SCHOOL_DATA["zones"]["colours"] as buttonValue[]);
   return <Grid container spacing={3} justify="center" alignItems="center">
     {colours.map((colour: buttonValue) => {
-      return <Grid item xs={6}>
+      return <Grid item xs={12} sm={6}>
         <SelectionButton text={{ zone: colour.value }} animal={selectedAnimal} color={colour.value} onClick={() => handleNext(colour)} />
       </Grid>
     })}
