@@ -4,6 +4,7 @@ import Admin from "./pages/admin";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import Graph from "./pages/graph";
 
 const theme = createMuiTheme({
   typography: {
@@ -21,6 +22,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
+            <Route path="/graph">
+              <Graph />
+            </Route>
             <Route path="/admin">
               <Admin />
             </Route>
