@@ -1,21 +1,24 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { CardHeader } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
     root: {
-        minHeight: 345,
-        maxWidth: 345
+        border: 2,
+        minHeight: 291,
+        // maxWidth: 240,
+        textAlign: 'center',
     },
     bigEmoji: {
-        fontSize: 192
+        fontSize: 130
     },
     smallEmoji: {
-        fontSize: 96
+        fontSize: 75
     }
 });
 
@@ -53,17 +56,21 @@ const SelectionButton: FC<SelectionButtonProps> = (props) => {
             </Typography>
         }
     }
-    return <Card className={classes.root}>
-        <CardActionArea className={classes.root} onClick={props.onClick}>
-            <CardContent style={{backgroundColor: props.color}}>
+    let cardTitle = () => {
+        if (props.animal && props.transport) {
+            return `${props.text.zone} travelling by ${props.text.transport}`;
+        }
+        else {
+            return props.text.zone || props.text.transport;
+        }
+    }
+
+    return <Card className={classes.root} variant="outlined" >
+        <CardHeader title={cardTitle()}></CardHeader>
+        <CardActionArea onClick={props.onClick}>
+            <CardContent style={{ backgroundColor: props.color }}>
                 {emoji()}
             </CardContent>
-            <Typography variant="h3" gutterBottom component="h3">
-                {props.text.zone}
-            </Typography>
-            <Typography variant="h3" gutterBottom component="h3">
-                {props.text.transport}
-            </Typography>
         </CardActionArea>
     </Card>
 }

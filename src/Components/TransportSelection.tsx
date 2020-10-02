@@ -17,9 +17,9 @@ function TransportSelection({
 }: Props) {
 
   const transports: buttonValue[] = (SCHOOL_DATA["transports"] as buttonValue[]);
-  return <Grid container spacing={3} justify="center" >
+  return <Grid container spacing={5} justify="center" >
     {transports.map((transport: buttonValue) => {
-      return <Grid item xs={3}>
+      return <Grid item xs={3} >
         <SelectionButton text={{ transport: transport.value }} transport={transport.img} onClick={() => handleNext(transport)} />
       </Grid>
     })}
