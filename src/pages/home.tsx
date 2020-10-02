@@ -169,6 +169,12 @@ function Home() {
               variant="contained"
               color="primary"
               className={classes.buttonSpacing}
+              size="large"
+              style={{
+                width: "100%",
+                height: 75,
+                fontSize: 50,
+              }}
             >
               Next pupil
             </Button>
