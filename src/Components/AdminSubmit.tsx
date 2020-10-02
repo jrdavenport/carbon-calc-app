@@ -16,13 +16,27 @@ function doSubmit(payload: Array<transportData>) {
   axios.post("http://localhost:3001/uploadData", payload);
 }
 
+function RefreshButton({ color }: { color: "primary" | "secondary" }) {
+  return (
+    <Button
+      variant="contained"
+      color={color}
+      onClick={() => {
+        window.location.reload(false);
+      }}
+    >
+      Refresh
+    </Button>
+  );
+}
+
 function Buttons({ payload }: { payload: Array<transportData> }) {
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "space-between",
-        maxWidth: "220px",
+        maxWidth: "320px",
         margin: "auto",
       }}
     >
@@ -36,6 +50,7 @@ function Buttons({ payload }: { payload: Array<transportData> }) {
       >
         Clear Data
       </Button>
+      <RefreshButton color="primary" />
       <Button
         variant="contained"
         color="primary"
@@ -94,15 +109,7 @@ function AdminSubmit() {
       ) : (
         <>
           <p>No results to submit.</p>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              window.location.reload(false);
-            }}
-          >
-            Refresh
-          </Button>
+          <RefreshButton color="primary" />
         </>
       )}
     </div>

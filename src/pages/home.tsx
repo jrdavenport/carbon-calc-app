@@ -9,9 +9,11 @@ import {
 import React, { useState } from "react";
 import SelectionSummary from "../Components/SelectionSummary";
 import TransportSelection from "../Components/TransportSelection";
+import { makeStyles } from "@material-ui/core/styles";
 import ZoneAnimalSelection from "../Components/ZoneAnimalSelection";
 import ZoneColourSelection from "../Components/ZoneColourSelection";
 import { buttonValue, transportData, localStorageKey } from "../utils";
+import CarbonComponent from "../Components/CarbonComponent";
 
 const steps = ["Zone animal", "Zone colour", "Transport", "Summary"];
 
@@ -40,6 +42,7 @@ function getStepContent(
           transport={stepsState[2]}
         />
       );
+
     default:
       throw new Error("Unknown step");
   }
@@ -83,6 +86,14 @@ const defaultState = {
 function Home() {
   const [state, setState] = useState<AppState>(defaultState);
 
+  const useStyles = makeStyles({
+    buttonSpacing: {
+      marginTop: "20px",
+    },
+  });
+
+  const classes = useStyles();
+
   const handleNext = (selectedValue: buttonValue) => {
     const updatedStepsState = state.stepsState;
     updatedStepsState[state.activeStep] = selectedValue;
@@ -112,6 +123,14 @@ function Home() {
     }
     data.push(selectedTransport);
     localStorage.setItem(localStorageKey, JSON.stringify(data));
+    setState({
+      ...state,
+      activeStep: state.activeStep + 1,
+    });
+  };
+
+  const reset = () => {
+    setState(defaultState);
   };
 
   return (
@@ -130,36 +149,49 @@ function Home() {
               Thank you for your selection.
             </Typography>
             <Typography variant="subtitle1">You are great!</Typography>
+            <CarbonComponent
+              zoneAnimal={state.stepsState[0].value}
+              zoneColour={state.stepsState[1].value}
+              transport={state.stepsState[2].value}
+            />
+            <Button
+              onClick={reset}
+              variant="contained"
+              color="primary"
+              className={classes.buttonSpacing}
+            >
+              Next pupil
+            </Button>
           </React.Fragment>
         ) : (
-            <React.Fragment>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  {getStepContent(state.activeStep, state.stepsState, handleNext)}
-                </Grid>
-                <Grid item xs={12}>
-                  {state.activeStep === steps.length - 1 && (
-                    <Button
-                      onClick={() => handleSubmit(state.stepsState)}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Confirm
-                    </Button>
-                  )}
-                  {state.activeStep !== 0 && (
-                    <Button
-                      onClick={handleBack}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      Back
-                    </Button>
-                  )}
-                </Grid>
+          <React.Fragment>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                {getStepContent(state.activeStep, state.stepsState, handleNext)}
               </Grid>
-            </React.Fragment>
-          )}
+              <Grid item xs={12}>
+                {state.activeStep === steps.length - 1 && (
+                  <Button
+                    onClick={() => handleSubmit(state.stepsState)}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Confirm
+                  </Button>
+                )}
+                {state.activeStep !== 0 && (
+                  <Button
+                    onClick={handleBack}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Back
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        )}
       </React.Fragment>
     </>
   );
