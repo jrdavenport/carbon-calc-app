@@ -185,6 +185,13 @@ function Home() {
                     onClick={() => handleSubmit(state.stepsState)}
                     variant="contained"
                     color="primary"
+                    size="large"
+                    style={{
+                      width: "100%",
+                      height: 75,
+                      fontSize: 50,
+                      marginBottom: 20
+                    }}
                   >
                     Confirm
                   </Button>
@@ -194,6 +201,12 @@ function Home() {
                     onClick={handleBack}
                     variant="contained"
                     color="secondary"
+                    size="large"
+                    style={{
+                      width: "100%",
+                      height: 75,
+                      fontSize: 50,
+                    }}
                   >
                     Back
                   </Button>

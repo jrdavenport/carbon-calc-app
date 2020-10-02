@@ -37,7 +37,8 @@ const weights = [
 const CarbonComponent: FC<CarbonComponentProps> = (props) => {
     const classes = useStyles();
 
-    let carbonKgs: number = (props.transport.toLowerCase() === "walk") ? 0 : 0.001 + Math.round(Math.random() * 1000) / 1000
+    let carbonKgs: number = (props.transport.toLowerCase() === "walk") ? 0 : 0.001 + Math.round((Math.random() + Number.EPSILON) * 1000) / 1000
+
 
     let funWeight = (carbonKgs: number) => {
         if (props.transport.toLowerCase() === "walk") {
