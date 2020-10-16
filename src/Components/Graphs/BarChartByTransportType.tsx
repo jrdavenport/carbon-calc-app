@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Tabs, Tab, Container, Paper, Typography } from "@material-ui/core";
+import { Container, Paper, Typography } from "@material-ui/core";
 import { DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, VerticalGridLines, XAxis, XYPlot, YAxis } from "react-vis";
 
 function BarChartByTransportType() {
