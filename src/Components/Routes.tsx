@@ -36,7 +36,7 @@ const SignedInRoutes = () => (
     <Route path="/admin">
       <Admin />
     </Route>
-    <Route path="/">
+    <Route exact path="/">
       <Home />
     </Route>
     <Route path="*" >
@@ -50,13 +50,7 @@ const SignedOutRoutes = () => (
     <Route path="/login">
       <Login />
     </Route>
-    <Route path="/graph">
-      <Graph />
-    </Route>
-    <Route path="/admin">
-      <Admin />
-    </Route>
-    <Route path="/">
+    <Route exact path="/">
       <Home />
     </Route>
     <Route path="*" >

@@ -1,4 +1,4 @@
-import { AppBar, createStyles, IconButton, makeStyles, Menu, MenuItem, Theme, Toolbar } from '@material-ui/core';
+import { AppBar, createStyles, IconButton, makeStyles, Menu, MenuItem, Theme, Toolbar, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAppContext } from '../libs/AppContext';
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    banner: {
+      position: "sticky"
+    }
   }),
 );
 
@@ -26,50 +29,109 @@ const useStyles = makeStyles((theme: Theme) =>
 export const AppBanner = (): JSX.Element => {
 
   const { isAuthenticated, userHasAuthenticated } = useAppContext()!;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [userAnchorEl, setUserAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mainAnchorEl, setMainAnchorEl] = React.useState<null | HTMLElement>(null);
   const classes = useStyles();
-  const open = Boolean(anchorEl);
+  const userMenuOpen = Boolean(userAnchorEl);
+  const mainMenuOpen = Boolean(mainAnchorEl);
 
   const history = useHistory();
 
   const handleLogout = () => {
     userHasAuthenticated(false);
-    setAnchorEl(null);
+    setUserAnchorEl(null);
     localStorage.removeItem("user");
     history.push("/");
   };
 
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setUserAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleMainMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setMainAnchorEl(event.currentTarget);
   };
+
+  const handleUserMenuClose = () => {
+    setUserAnchorEl(null);
+  };
+
+  const handleMainMenuClose = () => {
+    setMainAnchorEl(null);
+  };
+
 
   return (
-    <AppBar>
+    <AppBar className={classes.banner}>
       <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={handleMainMenu}>
           <MenuIcon />
         </IconButton>
+        <Menu
+          id="menu-main-appbar"
+          anchorEl={mainAnchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          open={mainMenuOpen}
+          onClose={handleMainMenuClose}
+          getContentAnchorEl={null}
+        >
+          {isAuthenticated && (<>
+            <MenuItem onClick={() => {
+              history.push("/admin");
+              handleMainMenuClose();
+            }}
+            >Admin</MenuItem>
+            <MenuItem onClick={() => {
+              history.push("/graph");
+              handleMainMenuClose();
+            }}
+            >Graphs</MenuItem></>)}
+          {!isAuthenticated && (<>
+
+            <MenuItem onClick={() => {
+              history.push("/");
+              handleMainMenuClose();
+            }}
+            >Enter Data</MenuItem>
+            <MenuItem onClick={() => {
+              history.push("/login");
+              handleMainMenuClose();
+            }}
+            >Login</MenuItem>
+          </>)}
+        </Menu>
+        <Typography variant="h6" className={classes.title}>
+          School Carbon Tracker
+        </Typography>
         {isAuthenticated && (
           <div>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleMenu}
+              onClick={handleUserMenu}
               color="inherit"
             >
               <AccountCircle />
             </IconButton>
             <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
+              id="menu-user-appbar"
+              anchorEl={userAnchorEl}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'right',
               }}
               keepMounted
@@ -77,8 +139,9 @@ export const AppBanner = (): JSX.Element => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              open={open}
-              onClose={handleClose}
+              open={userMenuOpen}
+              onClose={handleUserMenuClose}
+              getContentAnchorEl={null}
             >
               <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
