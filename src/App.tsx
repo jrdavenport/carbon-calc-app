@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Admin from "./pages/admin";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/home";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import Graph from "./pages/graph";
+import Routes from "./Components/Routes";
+import { AppContext } from "./libs/AppContext";
+
 
 const theme = createMuiTheme({
   typography: {
@@ -16,23 +15,34 @@ const theme = createMuiTheme({
   },
 });
 
+type Props = {
+  children: React.ReactNode;
+};
+export const AuthProvider = ({ children }: Props) => {
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("user") !== null;
+    userHasAuthenticated(isLoggedIn);
+  }, []);
+
+  return (
+
+    <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+      {children}
+    </AppContext.Provider>
+
+  );
+};
+
 function App() {
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route path="/graph">
-              <Graph />
-            </Route>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </Router>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </div>
   );
