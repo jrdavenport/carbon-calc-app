@@ -1,19 +1,9 @@
-import {
-  AppBar,
-  createStyles,
-  IconButton,
-  makeStyles,
-  Menu,
-  MenuItem,
-  Theme,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import React from "react";
-import MenuIcon from "@material-ui/icons/Menu";
-import { useAppContext } from "../libs/AppContext";
+import { AppBar, createStyles, IconButton, makeStyles, Menu, MenuItem, Theme, Toolbar, Typography } from '@material-ui/core';
+import React from 'react';
+import MenuIcon from '@material-ui/icons/Menu';
+import { useAppContext } from '../libs/AppContext';
 import { useHistory } from "react-router-dom";
-import { AccountCircle } from "@material-ui/icons";
+import { AccountCircle } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,8 +70,7 @@ export const AppBanner = (): JSX.Element => {
           className={classes.menuButton}
           color="inherit"
           aria-label="menu"
-          onClick={handleMainMenu}
-        >
+          onClick={handleMainMenu}>
           <MenuIcon />
         </IconButton>
         <Menu
@@ -100,46 +89,30 @@ export const AppBanner = (): JSX.Element => {
           onClose={handleMainMenuClose}
           getContentAnchorEl={null}
         >
-          {isAuthenticated && (
-            <>
-              <MenuItem
-                onClick={() => {
-                  history.push("/admin");
-                  handleMainMenuClose();
-                }}
-              >
-                Admin
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  history.push("/graph");
-                  handleMainMenuClose();
-                }}
-              >
-                Graphs
-              </MenuItem>
-            </>
-          )}
-          {!isAuthenticated && (
-            <>
-              <MenuItem
-                onClick={() => {
-                  history.push("/");
-                  handleMainMenuClose();
-                }}
-              >
-                Enter Data
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  history.push("/login");
-                  handleMainMenuClose();
-                }}
-              >
-                Login
-              </MenuItem>
-            </>
-          )}
+          {isAuthenticated && (<>
+            <MenuItem onClick={() => {
+              history.push("/admin");
+              handleMainMenuClose();
+            }}
+            >Admin</MenuItem>
+            <MenuItem onClick={() => {
+              history.push("/graph");
+              handleMainMenuClose();
+            }}
+            >Graphs</MenuItem></>)}
+          {!isAuthenticated && (<>
+
+            <MenuItem onClick={() => {
+              history.push("/");
+              handleMainMenuClose();
+            }}
+            >Enter Data</MenuItem>
+            <MenuItem onClick={() => {
+              history.push("/login");
+              handleMainMenuClose();
+            }}
+            >Login</MenuItem>
+          </>)}
         </Menu>
         <Typography variant="h6" className={classes.title}>
           School Carbon Tracker
