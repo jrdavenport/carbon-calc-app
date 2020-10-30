@@ -18,8 +18,8 @@ function TransportSelection({
 
   const transports: buttonValue[] = (SCHOOL_DATA["transports"] as buttonValue[]);
   return <Grid container spacing={5} justify="center" >
-    {transports.map((transport: buttonValue) => {
-      return <Grid item xs={12} sm={3} >
+    {transports.map((transport: buttonValue, index : number) => {
+      return <Grid item xs={12} sm={3} key={index} >
         <SelectionButton text={{ transport: transport.value }} transport={transport.img} onClick={() => handleNext(transport)} />
       </Grid>
     })}

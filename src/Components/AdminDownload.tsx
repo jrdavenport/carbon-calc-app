@@ -6,7 +6,7 @@ import fileDownload from "js-file-download";
 function doDownload() {
   axios
     .get(
-      "http://localhost:3003/carbon?zone_animal=dog&zone_colour=blue&method=petrol%20car"
+      "/carbon?zone_animal=dog&zone_colour=blue&method=petrol%20car"
     )
     .then((res) => {
       fileDownload(res.data, "filename.csv");
