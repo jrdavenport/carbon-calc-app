@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Container, CssBaseline, Avatar, Typography, TextField, Button, makeStyles } from "@material-ui/core";
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {
+  Container,
+  CssBaseline,
+  Avatar,
+  Typography,
+  TextField,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useAppContext } from "../libs/AppContext";
 import { useHistory } from "react-router-dom";
 
 interface user {
-  username: string
+  username: string;
 }
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -28,10 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function Login() {
   const { isAuthenticated, userHasAuthenticated } = useAppContext()!;
+  console.log("isAuthenticated", isAuthenticated);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +57,7 @@ function Login() {
 
   const handleSubmit = () => {
     const user = { email, password };
+    console.log("user", user);
     const response = { data: { username: "test user" } };
     // set the state of the user
     setUser(response.data);
@@ -68,7 +76,7 @@ function Login() {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
-      </Typography>
+        </Typography>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -80,7 +88,9 @@ function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(event.target.value)
+            }
           />
           <TextField
             variant="outlined"
@@ -92,7 +102,9 @@ function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(event.target.value)
+            }
           />
           <Button
             type="submit"
@@ -103,7 +115,7 @@ function Login() {
             onClick={() => handleSubmit()}
           >
             Sign In
-        </Button>
+          </Button>
         </form>
       </div>
     </Container>

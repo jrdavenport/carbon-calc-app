@@ -1,9 +1,19 @@
-import { AppBar, createStyles, IconButton, makeStyles, Menu, MenuItem, Theme, Toolbar, Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
-import MenuIcon from '@material-ui/icons/Menu';
-import { useAppContext } from '../libs/AppContext';
+import {
+  AppBar,
+  createStyles,
+  IconButton,
+  makeStyles,
+  Menu,
+  MenuItem,
+  Theme,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import React from "react";
+import MenuIcon from "@material-ui/icons/Menu";
+import { useAppContext } from "../libs/AppContext";
 import { useHistory } from "react-router-dom";
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,20 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     banner: {
-      position: "sticky"
-    }
-  }),
+      position: "sticky",
+    },
+  })
 );
-
 
 /**
  * Displayed along the top of the pages within the user interface
  */
 export const AppBanner = (): JSX.Element => {
-
   const { isAuthenticated, userHasAuthenticated } = useAppContext()!;
-  const [userAnchorEl, setUserAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mainAnchorEl, setMainAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [userAnchorEl, setUserAnchorEl] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [mainAnchorEl, setMainAnchorEl] = React.useState<null | HTMLElement>(
+    null
+  );
   const classes = useStyles();
   const userMenuOpen = Boolean(userAnchorEl);
   const mainMenuOpen = Boolean(mainAnchorEl);
@@ -60,7 +72,6 @@ export const AppBanner = (): JSX.Element => {
     setMainAnchorEl(null);
   };
 
-
   return (
     <AppBar className={classes.banner}>
       <Toolbar>
@@ -69,49 +80,66 @@ export const AppBanner = (): JSX.Element => {
           className={classes.menuButton}
           color="inherit"
           aria-label="menu"
-          onClick={handleMainMenu}>
+          onClick={handleMainMenu}
+        >
           <MenuIcon />
         </IconButton>
         <Menu
           id="menu-main-appbar"
           anchorEl={mainAnchorEl}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: "bottom",
+            horizontal: "left",
           }}
           keepMounted
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+            vertical: "top",
+            horizontal: "left",
           }}
           open={mainMenuOpen}
           onClose={handleMainMenuClose}
           getContentAnchorEl={null}
         >
-          {isAuthenticated && (<>
-            <MenuItem onClick={() => {
-              history.push("/admin");
-              handleMainMenuClose();
-            }}
-            >Admin</MenuItem>
-            <MenuItem onClick={() => {
-              history.push("/graph");
-              handleMainMenuClose();
-            }}
-            >Graphs</MenuItem></>)}
-          {!isAuthenticated && (<>
-
-            <MenuItem onClick={() => {
-              history.push("/");
-              handleMainMenuClose();
-            }}
-            >Enter Data</MenuItem>
-            <MenuItem onClick={() => {
-              history.push("/login");
-              handleMainMenuClose();
-            }}
-            >Login</MenuItem>
-          </>)}
+          {isAuthenticated && (
+            <>
+              <MenuItem
+                onClick={() => {
+                  history.push("/admin");
+                  handleMainMenuClose();
+                }}
+              >
+                Admin
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  history.push("/graph");
+                  handleMainMenuClose();
+                }}
+              >
+                Graphs
+              </MenuItem>
+            </>
+          )}
+          {!isAuthenticated && (
+            <>
+              <MenuItem
+                onClick={() => {
+                  history.push("/");
+                  handleMainMenuClose();
+                }}
+              >
+                Enter Data
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  history.push("/login");
+                  handleMainMenuClose();
+                }}
+              >
+                Login
+              </MenuItem>
+            </>
+          )}
         </Menu>
         <Typography variant="h6" className={classes.title}>
           School Carbon Tracker
@@ -131,13 +159,13 @@ export const AppBanner = (): JSX.Element => {
               id="menu-user-appbar"
               anchorEl={userAnchorEl}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
+                vertical: "bottom",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={userMenuOpen}
               onClose={handleUserMenuClose}
