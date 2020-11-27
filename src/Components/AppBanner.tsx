@@ -89,19 +89,25 @@ export const AppBanner = (): JSX.Element => {
           onClose={handleMainMenuClose}
           getContentAnchorEl={null}
         >
-          {isAuthenticated && (<>
-            <MenuItem onClick={() => {
-              history.push("/admin");
-              handleMainMenuClose();
-            }}
-            >Admin</MenuItem>
-            <MenuItem onClick={() => {
-              history.push("/graph");
-              handleMainMenuClose();
-            }}
-            >Graphs</MenuItem></>)}
+          {isAuthenticated && (
+            <>
+              <MenuItem onClick={() => {
+                history.push("/admin");
+                handleMainMenuClose();
+              }}
+              >Admin</MenuItem>
+              <MenuItem onClick={() => {
+                history.push("/graph");
+                handleMainMenuClose();
+              }}
+              >Graphs</MenuItem>
+              <MenuItem onClick={() => {
+                history.push("/school-selector");
+                handleMainMenuClose();
+              }}
+              >Select School</MenuItem>
+            </>)}
           {!isAuthenticated && (<>
-
             <MenuItem onClick={() => {
               history.push("/");
               handleMainMenuClose();

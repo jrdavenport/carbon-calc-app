@@ -6,6 +6,7 @@ import Admin from '../pages/admin';
 import Graph from '../pages/graph';
 import Home from '../pages/home';
 import Login from '../pages/login';
+import School from '../pages/school';
 import AppBanner from './AppBanner';
 
 function Routes() {
@@ -35,6 +36,9 @@ const SignedInRoutes = () => (
     </Route>
     <Route path="/admin">
       <Admin />
+    </Route>
+    <Route path="/school-selector">
+      <School />
     </Route>
     <Route exact path="/">
       <Home />
