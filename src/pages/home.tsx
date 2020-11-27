@@ -18,8 +18,9 @@ import ZoneColourSelection from "../Components/ZoneColourSelection";
 import { buttonValue, schoolStorageKey, selectedClass, transportData, transportStorageKey } from "../utils";
 import CarbonComponent from "../Components/CarbonComponent";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
@@ -132,6 +133,7 @@ function Home() {
   }
   const [state, setState] = useState<AppState>(initialState);
   const classes = useStyles();
+  const history = useHistory();
 
   const handleNext = (selectedValue: buttonValue) => {
     const updatedStepsState = state.stepsState;
@@ -172,91 +174,98 @@ function Home() {
     setState(initialState);
   };
 
-  return (
-    <Container>
-      <Stepper activeStep={state.activeStep}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <React.Fragment>
-        {state.activeStep === steps.length ? (
-          <React.Fragment>
-            <Typography variant="h5" gutterBottom>
-              Thank you for your selection.
+  return (<Container>
+    <Stepper activeStep={state.activeStep}>
+      {steps.map((label) => (
+        <Step key={label}>
+          <StepLabel>{label}</StepLabel>
+        </Step>
+      ))}
+    </Stepper>
+    <React.Fragment>
+      {state.className === '' && (<p>Please select a class to use the carbon tracker
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.push("/school-selector");
+          }}>Class set up</Button>
+      </p>)}
+      {state.activeStep === steps.length ? (
+        <React.Fragment>
+          <Typography variant="h5" gutterBottom>
+            Thank you for your selection.
             </Typography>
-            <Typography variant="subtitle1">You are great!</Typography>
-            <CarbonComponent
-              zoneAnimal={state.stepsState[0].value}
-              zoneColour={state.stepsState[1].value}
-              transport={state.stepsState[2].value}
-            />
-            <Button
-              onClick={reset}
-              variant="contained"
-              color="primary"
-              className={classes.buttonSpacing}
-              size="large"
-              style={{
-                width: "100%",
-                height: 75,
-                fontSize: 50,
-              }}
-            >
-              Next pupil
+          <Typography variant="subtitle1">You are great!</Typography>
+          <CarbonComponent
+            zoneAnimal={state.stepsState[0].value}
+            zoneColour={state.stepsState[1].value}
+            transport={state.stepsState[2].value}
+          />
+          <Button
+            onClick={reset}
+            variant="contained"
+            color="primary"
+            className={classes.buttonSpacing}
+            size="large"
+            style={{
+              width: "100%",
+              height: 75,
+              fontSize: 50,
+            }}
+          >
+            Next pupil
             </Button>
-          </React.Fragment>
-        ) : (
-            <React.Fragment>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  {getStepContent(state.activeStep,
-                    state.stepsState,
-                    state.schoolAnimals,
-                    state.schoolColours,
-                    state.schoolTransports,
-                    handleNext)}
-                </Grid>
-                <Grid item xs={12}>
-                  {state.activeStep === steps.length - 1 && (
-                    <Button
-                      onClick={() => handleSubmit(state.stepsState)}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      style={{
-                        width: "100%",
-                        height: 75,
-                        fontSize: 50,
-                        marginBottom: 20
-                      }}
-                    >
-                      Confirm
-                    </Button>
-                  )}
-                  {state.activeStep !== 0 && (
-                    <Button
-                      onClick={handleBack}
-                      variant="contained"
-                      color="secondary"
-                      size="large"
-                      style={{
-                        width: "100%",
-                        height: 75,
-                        fontSize: 50,
-                      }}
-                    >
-                      Back
-                    </Button>
-                  )}
-                </Grid>
+        </React.Fragment>
+      ) : (
+          <React.Fragment>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                {getStepContent(state.activeStep,
+                  state.stepsState,
+                  state.schoolAnimals,
+                  state.schoolColours,
+                  state.schoolTransports,
+                  handleNext)}
               </Grid>
-            </React.Fragment>
-          )}
-      </React.Fragment>
-    </Container>
+              <Grid item xs={12}>
+                {state.activeStep === steps.length - 1 && (
+                  <Button
+                    onClick={() => handleSubmit(state.stepsState)}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    style={{
+                      width: "100%",
+                      height: 75,
+                      fontSize: 50,
+                      marginBottom: 20
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                )}
+                {state.activeStep !== 0 && (
+                  <Button
+                    onClick={handleBack}
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    style={{
+                      width: "100%",
+                      height: 75,
+                      fontSize: 50,
+                    }}
+                  >
+                    Back
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        )}
+    </React.Fragment>
+  </Container>
   );
 }
 
