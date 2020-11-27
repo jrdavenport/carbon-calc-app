@@ -1,4 +1,6 @@
 export interface transportData {
+  schoolName: string,
+  className: string,
   zone: {
     animal: string;
     colour: string;
@@ -14,7 +16,48 @@ export interface buttonValue {
   colour?: string;
 }
 
-export const localStorageKey = "transportData";
+export interface school {
+  name: string,
+  classes: string[],
+  zones: {
+    animals: {
+      value: string,
+      img: string,
+    }[],
+    colours:
+    {
+      value: string,
+      colour: string,
+    }[],
+  },
+  transports: {
+    value: string,
+    img: string,
+  }[],
+}
+
+export interface selectedClass {
+  schoolName: string,
+  className: string,
+  zones: {
+    animals: {
+      value: string,
+      img: string,
+    }[],
+    colours:
+    {
+      value: string,
+      colour: string,
+    }[],
+  },
+  transports: {
+    value: string,
+    img: string,
+  }[],
+}
+
+export const transportStorageKey = "transportData";
+export const schoolStorageKey = "schoolData";
 
 const toLowerSnakeCase = (string: string) =>
   string.replace(" ", "_").toLowerCase();

@@ -120,7 +120,7 @@ export const AppBanner = (): JSX.Element => {
             >Login</MenuItem>
           </>)}
         </Menu>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h3" component="h1" className={classes.title}>
           School Carbon Tracker
         </Typography>
         {isAuthenticated && (

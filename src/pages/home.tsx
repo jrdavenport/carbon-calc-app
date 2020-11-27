@@ -15,7 +15,7 @@ import SelectionSummary from "../Components/SelectionSummary";
 import TransportSelection from "../Components/TransportSelection";
 import ZoneAnimalSelection from "../Components/ZoneAnimalSelection";
 import ZoneColourSelection from "../Components/ZoneColourSelection";
-import { buttonValue, transportData, localStorageKey } from "../utils";
+import { buttonValue, schoolStorageKey, selectedClass, transportData, transportStorageKey } from "../utils";
 import CarbonComponent from "../Components/CarbonComponent";
 import moment from "moment";
 
@@ -36,43 +36,50 @@ const steps = ["Zone animal", "Zone colour", "Transport", "Summary"];
 function getStepContent(
   step: number,
   stepsState: { [step: number]: buttonValue },
+  animals: buttonValue[],
+  colours: buttonValue[],
+  transports: buttonValue[],
   handleNext: (selectedValue: buttonValue) => void
 ) {
   switch (step) {
     case 0:
-      return <ZoneAnimalSelection handleNext={handleNext} />;
+      return <ZoneAnimalSelection
+        animals={animals}
+        handleNext={handleNext} />;
     case 1:
-      return (
-        <ZoneColourSelection
-          selectedAnimal={stepsState[0].img!}
-          handleNext={handleNext}
-        />
-      );
+      return <ZoneColourSelection
+        colours={colours}
+        selectedAnimal={stepsState[0].img!}
+        handleNext={handleNext}
+      />;
     case 2:
-      return <TransportSelection handleNext={handleNext} />;
+      return <TransportSelection
+        transports={transports}
+        handleNext={handleNext} />;
     case 3:
-      return (
-        <SelectionSummary
-          zoneAnimal={stepsState[0]}
-          zoneColour={stepsState[1]}
-          transport={stepsState[2]}
-        />
-      );
-
+      return <SelectionSummary
+        zoneAnimal={stepsState[0]}
+        zoneColour={stepsState[1]}
+        transport={stepsState[2]}
+      />;
     default:
       throw new Error("Unknown step");
   }
 }
 
-function mapStateDataToStoredData(stateData: {
-  [step: number]: buttonValue;
-}): transportData {
+function mapStateDataToStoredData(schoolName: string,
+  className: string,
+  stateData: {
+    [step: number]: buttonValue;
+  }): transportData {
   const date = new Date();
 
   var hours = date.getHours();
   var journey = hours >= 12 ? "From" : "To";
 
   return {
+    schoolName,
+    className,
     zone: {
       animal: stateData[0].value,
       colour: stateData[1].value,
@@ -86,22 +93,44 @@ function mapStateDataToStoredData(stateData: {
 interface AppState {
   activeStep: number;
   stepsState: { [step: number]: buttonValue };
+  schoolName: string,
+  className: string,
+  schoolAnimals: buttonValue[],
+  schoolColours: buttonValue[],
+  schoolTransports: buttonValue[],
   zoneAnimal?: string;
   zoneColour?: string;
   transport?: string;
 }
 
-const defaultState = {
+const defaultState: AppState = {
   activeStep: 0,
   stepsState: {},
-  zoneAnimal: undefined,
-  zoneColour: undefined,
-  transport: undefined,
+  schoolName: '',
+  className: '',
+  schoolAnimals: [],
+  schoolColours: [],
+  schoolTransports: [],
 };
 
 function Home() {
-  const [state, setState] = useState<AppState>(defaultState);
 
+  let initialState = defaultState;
+  const schoolLocalStorage = localStorage.getItem(schoolStorageKey);
+  if (schoolLocalStorage !== null) {
+    const currentClass = JSON.parse(schoolLocalStorage as string) as selectedClass;
+    initialState = {
+      ...defaultState,
+      schoolName: currentClass.schoolName,
+      className: currentClass.className,
+      schoolAnimals: currentClass.zones.animals,
+      schoolColours: currentClass.zones.colours,
+      schoolTransports: currentClass.transports,
+    };
+    console.log(currentClass);
+    console.log(initialState);
+  }
+  const [state, setState] = useState<AppState>(initialState);
   const classes = useStyles();
 
   const handleNext = (selectedValue: buttonValue) => {
@@ -125,14 +154,14 @@ function Home() {
   };
 
   const handleSubmit = (selectedData: { [step: number]: buttonValue }) => {
-    const selectedTransport = mapStateDataToStoredData(selectedData);
+    const selectedTransport = mapStateDataToStoredData(state.schoolName, state.className, selectedData);
     let data: transportData[] = [];
-    if (localStorage.getItem(localStorageKey)) {
-      console.log(localStorage.getItem(localStorageKey));
-      data = JSON.parse(localStorage.getItem(localStorageKey) as string);
+    if (localStorage.getItem(transportStorageKey)) {
+      console.log(localStorage.getItem(transportStorageKey));
+      data = JSON.parse(localStorage.getItem(transportStorageKey) as string);
     }
     data.push(selectedTransport);
-    localStorage.setItem(localStorageKey, JSON.stringify(data));
+    localStorage.setItem(transportStorageKey, JSON.stringify(data));
     setState({
       ...state,
       activeStep: state.activeStep + 1,
@@ -140,7 +169,7 @@ function Home() {
   };
 
   const reset = () => {
-    setState(defaultState);
+    setState(initialState);
   };
 
   return (
@@ -180,47 +209,52 @@ function Home() {
             </Button>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                {getStepContent(state.activeStep, state.stepsState, handleNext)}
+            <React.Fragment>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  {getStepContent(state.activeStep,
+                    state.stepsState,
+                    state.schoolAnimals,
+                    state.schoolColours,
+                    state.schoolTransports,
+                    handleNext)}
+                </Grid>
+                <Grid item xs={12}>
+                  {state.activeStep === steps.length - 1 && (
+                    <Button
+                      onClick={() => handleSubmit(state.stepsState)}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      style={{
+                        width: "100%",
+                        height: 75,
+                        fontSize: 50,
+                        marginBottom: 20
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  )}
+                  {state.activeStep !== 0 && (
+                    <Button
+                      onClick={handleBack}
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      style={{
+                        width: "100%",
+                        height: 75,
+                        fontSize: 50,
+                      }}
+                    >
+                      Back
+                    </Button>
+                  )}
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                {state.activeStep === steps.length - 1 && (
-                  <Button
-                    onClick={() => handleSubmit(state.stepsState)}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    style={{
-                      width: "100%",
-                      height: 75,
-                      fontSize: 50,
-                      marginBottom: 20
-                    }}
-                  >
-                    Confirm
-                  </Button>
-                )}
-                {state.activeStep !== 0 && (
-                  <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                    style={{
-                      width: "100%",
-                      height: 75,
-                      fontSize: 50,
-                    }}
-                  >
-                    Back
-                  </Button>
-                )}
-              </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
+            </React.Fragment>
+          )}
       </React.Fragment>
     </Container>
   );
