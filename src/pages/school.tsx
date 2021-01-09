@@ -1,8 +1,8 @@
 import { Button, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Theme, Typography } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import React, { useEffect, useState } from "react";
-import { schoolStorageKey, school } from '../utils';
-import SCHOOL_DATA from '../school_data/school_1.json';
+import { schoolStorageKey, school, school_class } from '../utils';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,14 +17,31 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const getSchoolData = (): Array<school> => {
-  /* TODO: hook up to back end to retrieve school data */
-  return [SCHOOL_DATA]
+  try {
+    let results: school[] = [];
+    axios({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      config: {
+        method: 'GET',
+      },
+    } as AxiosRequestConfig).then(function (response) {
+      results = response.data;;
+    });
+    console.log(results);
+    return results;
+  }
+  catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
 interface SchoolSelectionState {
   schools: school[],
   selectedSchool: string,
-  schoolClasses: string[],
+  schoolClasses: school_class[],
   selectedClass: string,
 }
 
@@ -50,10 +67,10 @@ function SchoolData() {
 
   const handleSchoolChange = (schoolName?: string) => {
     let selectedSchool: string = '';
-    let classes: string[] = []
+    let classes: school_class[] = []
     if (schoolName) {
       selectedSchool = schoolName;
-      const selectedSchoolData = state.schools.find((school) => school.name === schoolName);
+      const selectedSchoolData = state.schools.find((school) => school.school_name === schoolName);
       classes = selectedSchoolData ? selectedSchoolData.classes : []
     }
 
@@ -78,7 +95,7 @@ function SchoolData() {
 
   const handleSubmit = () => {
 
-    const selectedSchoolData = state.schools.find((school) => school.name === state.selectedSchool);
+    const selectedSchoolData = state.schools.find((school) => school.school_name === state.selectedSchool);
     if (selectedSchoolData) {
       localStorage.setItem(schoolStorageKey, JSON.stringify(
         {
@@ -112,7 +129,7 @@ function SchoolData() {
           value={state.selectedSchool}>
           <MenuItem aria-label="None" value="" />
           {state.schools.map((school, index) => {
-            return <MenuItem key={index} value={school.name}>{school.name}</MenuItem>;
+            return <MenuItem key={index} value={school.school_name}>{school.school_name}</MenuItem>;
           })}
         </Select>
       </FormControl>
@@ -132,7 +149,7 @@ function SchoolData() {
           value={state.selectedClass}>
           <MenuItem aria-label="None" value="" />
           {state.schoolClasses.map((cl, index) => {
-            return <MenuItem key={index} value={cl}>{cl}</MenuItem>;
+            return <MenuItem key={index} value={cl.class_name}>{cl.class_name}</MenuItem>;
           })}
         </Select>
       </FormControl>

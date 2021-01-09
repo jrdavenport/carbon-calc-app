@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { useAppContext } from '../libs/AppContext';
 import Admin from '../pages/admin';
 import Graph from '../pages/graph';
-import Home from '../pages/home';
+import Commute from '../pages/commute';
 import Login from '../pages/login';
 import SchoolData from '../pages/school';
 import AppBanner from './AppBanner';
@@ -41,7 +41,7 @@ const SignedInRoutes = () => (
       <SchoolData />
     </Route>
     <Route exact path="/">
-      <Home />
+      <Commute />
     </Route>
     <Route path="*" >
       <NotFound />
@@ -55,7 +55,7 @@ const SignedOutRoutes = () => (
       <Login />
     </Route>
     <Route exact path="/">
-      <Home />
+      <Commute />
     </Route>
     <Route path="*" >
       <NotFound />

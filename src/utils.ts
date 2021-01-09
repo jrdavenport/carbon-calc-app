@@ -1,6 +1,6 @@
 export interface transportData {
-  schoolName: string,
-  className: string,
+  schoolName: string;
+  className: string;
   zone: {
     animal: string;
     colour: string;
@@ -16,9 +16,16 @@ export interface buttonValue {
   colour?: string;
 }
 
+export interface school_class {
+  class_id: number;
+  class_name: string;
+}
+
+
 export interface school {
-  name: string,
-  classes: string[],
+  school_id: number,
+  school_name: string,
+  classes: school_class[],
   zones: {
     animals: {
       value: string,
