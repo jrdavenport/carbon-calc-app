@@ -1,4 +1,9 @@
 {
+  "name": "Test School",
+  "classes": [
+    "A1",
+    "Bw"
+  ],
   "zones": {
     "animals": [
       {

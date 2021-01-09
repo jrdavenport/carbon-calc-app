@@ -10,7 +10,7 @@ import {
   Button,
 } from "@material-ui/core";
 import axios from "axios";
-import { transportData, localStorageKey, adaptRecords } from "../utils";
+import { transportData, transportStorageKey, adaptRecords } from "../utils";
 
 function doSubmit(records: Array<transportData>) {
   const payload = adaptRecords(records);
@@ -45,7 +45,7 @@ function Buttons({ payload }: { payload: Array<transportData> }) {
         variant="contained"
         color="secondary"
         onClick={() => {
-          localStorage.removeItem(localStorageKey);
+          localStorage.removeItem(transportStorageKey);
           window.location.reload(false);
         }}
       >
@@ -65,7 +65,7 @@ function Buttons({ payload }: { payload: Array<transportData> }) {
 
 function AdminSubmit() {
   const transportRows: transportData[] = JSON.parse(
-    localStorage.getItem(localStorageKey) || "[]"
+    localStorage.getItem(transportStorageKey) || "[]"
   );
 
   return (
@@ -108,11 +108,11 @@ function AdminSubmit() {
           <Buttons payload={transportRows} />
         </>
       ) : (
-        <>
-          <p>No results to submit.</p>
-          <RefreshButton color="primary" />
-        </>
-      )}
+          <>
+            <p>No results to submit.</p>
+            <RefreshButton color="primary" />
+          </>
+        )}
     </div>
   );
 }
